@@ -3,7 +3,6 @@ import { View, FlatList } from 'react-native';
 import { ListItem } from  'react-native-elements';
 import {Image} from "react-native-elements";
 import TouchableScale from 'react-native-touchable-scale';
-// Only if no expo
 
 function Menu(props) {
 
@@ -19,6 +18,7 @@ function Menu(props) {
                 title={item.name}
                 subtitle={item.description}
                 hideChevron={true}
+                onPress={() => props.onPress(item.id)}
                 leftAvatar={{ source: require('./images/zucchipakoda.png'), showEditButton: true }}
             />
 
