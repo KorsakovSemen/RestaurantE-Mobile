@@ -26,15 +26,13 @@ class Menu extends Component {
             return (
                 <ListItem
                     Component={TouchableScale}
-                    friction={90} //
-                    tension={100} // These props are passed to the parent component (here TouchableScale)
-                    activeScale={0.95} //
+                    activeScale={0.95}
                     key={index}
                     title={item.name}
                     subtitle={item.description}
                     hideChevron={true}
                     onPress={() => navigate('Dishdetail', { dishId: item.id })}
-                    leftAvatar={{source: require('./images/zucchipakoda.png'), showEditButton: true}}
+                    leftAvatar={{source: require('./images/zucchipakoda.png'), showEditButton: false}}
                 />
 
 
