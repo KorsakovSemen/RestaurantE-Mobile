@@ -7,6 +7,7 @@ import Home from './HomeComponent'
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
+import About from "./AboutComponent";
 
 
 const MenuNavigator = createStackNavigator({
@@ -31,6 +32,23 @@ const ContactNavigator = createStackNavigator({
     ContactUs: { screen: Contact }
 }, {
         initialRouteName: 'ContactUs',
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: "#512DA8"
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: "#fff"
+            }
+        }
+    }
+
+);
+
+const AboutNavigator = createStackNavigator({
+        AboutUs: { screen: About }
+    }, {
+        initialRouteName: 'AboutUs',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: "#512DA8"
@@ -84,9 +102,19 @@ const MainNavigator = createDrawerNavigator({
                 navigationOptions: {
                     title: 'Contact Us',
                     drawerIcon: ({ focused }) => (
-                        <Ionicons name="md-pencil" size={24} color={focused ? 'blue' : 'black'} />
+                        <Ionicons name="md-menu" size={24} color={focused ? 'blue' : 'black'} />
                     ),
                     drawerLabel: 'Contact Us'
+                },
+            },
+        AboutUs:
+            { screen: AboutNavigator,
+                navigationOptions: {
+                    title: 'About Us',
+                    drawerIcon: ({ focused }) => (
+                        <Ionicons name="md-menu" size={24} color={focused ? 'blue' : 'black'} />
+                    ),
+                    drawerLabel: 'About Us'
                 },
             },
     },
