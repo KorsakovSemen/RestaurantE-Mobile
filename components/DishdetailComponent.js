@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import {Card, ListItem} from 'react-native-elements';
 import { DISHES } from '../shared/dishes';
 import TouchableScale from "react-native-touchable-scale";
+import {COMMENTS} from "../shared/comments";
 
 function RenderDish(props) {
 
@@ -24,12 +25,30 @@ function RenderDish(props) {
     }
 }
 
+function RenderComment(props) {
+
+    const comment = props.comments.map((comment)=>{
+        return(
+            <ScrollView>
+            <Text>{comment.comment}</Text>
+            </ScrollView>
+                )
+    });
+
+    return(
+        <View>
+        {comment}
+        </View>
+    )
+}
+
 class Dishdetail extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            dishes: DISHES
+            dishes: DISHES,
+            comments: COMMENTS
         };
     }
 
@@ -40,7 +59,10 @@ class Dishdetail extends Component {
     render() {
         const dishId = this.props.navigation.getParam('dishId','default value');
         return(
+            <View>
             <RenderDish dish={this.state.dishes[+dishId]} />
+            <RenderComment comments={this.state.comments.filter((comment) => comment.dishId === dishId )}/>
+            </View>
         );
     }
 }

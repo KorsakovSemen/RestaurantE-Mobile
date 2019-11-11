@@ -4,6 +4,7 @@ import {ListItem} from 'react-native-elements';
 import {Image} from "react-native-elements";
 import TouchableScale from 'react-native-touchable-scale';
 import {DISHES} from '../shared/dishes';
+import {COMMENTS} from "../shared/comments";
 
 class Menu extends Component {
 
@@ -26,7 +27,7 @@ class Menu extends Component {
             return (
                 <ListItem
                     Component={TouchableScale}
-                    activeScale={0.95}
+                    activeScale={0.95} //
                     key={index}
                     title={item.name}
                     subtitle={item.description}

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
+import Contact from './ContactComponent'
 import { View, Platform} from 'react-native';
-import { Home } from './HomeComponent'
+import Home from './HomeComponent'
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
+
 
 const MenuNavigator = createStackNavigator({
         Menu: { screen: Menu },
@@ -25,22 +27,36 @@ const MenuNavigator = createStackNavigator({
     }
 );
 
-const HomeNavigator  = createStackNavigator({
-        Home: { screen: Menu }
-    },
-    {
-        initialRouteName: 'Home',
-        navigationOptions: ({ navigation }) => ({
+const ContactNavigator = createStackNavigator({
+    ContactUs: { screen: Contact }
+}, {
+        initialRouteName: 'ContactUs',
+        navigationOptions: {
             headerStyle: {
                 backgroundColor: "#512DA8"
             },
+            headerTintColor: '#fff',
             headerTitleStyle: {
                 color: "#fff"
-            },
-            headerTintColor: "#fff"
-        })
+            }
+        }
     }
+
 );
+
+const HomeNavigator = createStackNavigator({
+    Home: { screen: Home }
+}, {
+    navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+            backgroundColor: "#512DA8"
+        },
+        headerTitleStyle: {
+            color: "#fff"
+        },
+        headerTintColor: "#fff"
+    })
+});
 
 const MainNavigator = createDrawerNavigator({
     Home:
@@ -63,9 +79,20 @@ const MainNavigator = createDrawerNavigator({
                 drawerLabel: 'Menu'
             },
         },
+    ContactUs:
+        { screen: ContactNavigator,
+                navigationOptions: {
+                    title: 'Contact Us',
+                    drawerIcon: ({ focused }) => (
+                        <Ionicons name="md-pencil" size={24} color={focused ? 'blue' : 'black'} />
+                    ),
+                    drawerLabel: 'Contact Us'
+                },
+            },
     },
+
     {
-        HeaderTitle: "Test",
+        drawerLabel: 'Navigation',
         drawerWidth: 200,
         drawerBackgroundColor: '#D1C4E9'
     }
