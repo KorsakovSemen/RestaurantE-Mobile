@@ -49,7 +49,7 @@ class Menu extends Component {
         const { navigate } = this.props.navigation;
         return (
             <FlatList
-                data={this.props.props.dishes}
+                data={this.props.dishes.dishes}
                 renderItem={renderMenuItem}
                 keyExtractor={item => item.id.toString()}
             />
