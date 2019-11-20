@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 import {View, FlatList} from 'react-native';
-import {ListItem} from 'react-native-elements';
+import {ListItem, Tile} from 'react-native-elements';
 import {Image} from "react-native-elements";
 import TouchableScale from 'react-native-touchable-scale';
 import {DISHES} from '../shared/dishes';
 import {COMMENTS} from "../shared/comments";
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+        dishes: state.dishes
+    }
+};
 
 class Menu extends Component {
 
@@ -25,15 +33,13 @@ class Menu extends Component {
         const renderMenuItem = ({item, index}) => {
 
             return (
-                <ListItem
-                    Component={TouchableScale}
-                    activeScale={0.95} //
+                <Tile
                     key={index}
                     title={item.name}
-                    subtitle={item.description}
-                    hideChevron={true}
+                    caption={item.description}
+                    featured
                     onPress={() => navigate('Dishdetail', { dishId: item.id })}
-                    leftAvatar={{source: require('./images/zucchipakoda.png'), showEditButton: false}}
+                    imageSrc={{ uri: baseUrl + item.image}}
                 />
 
 
@@ -43,10 +49,9 @@ class Menu extends Component {
         const { navigate } = this.props.navigation;
         return (
             <FlatList
-                data={this.state.dishes}
+                data={this.props.props.dishes}
                 renderItem={renderMenuItem}
                 keyExtractor={item => item.id.toString()}
-                bottomDivider
             />
 
 
@@ -56,4 +61,4 @@ class Menu extends Component {
 }
 
 
-export default Menu;
+export default connect(mapStateToProps)(Menu);
