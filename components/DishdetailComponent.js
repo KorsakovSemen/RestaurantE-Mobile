@@ -6,14 +6,21 @@ import TouchableScale from "react-native-touchable-scale";
 import {COMMENTS} from "../shared/comments";
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import { postFavorite } from '../redux/ActionCreators';
 
 
 const mapStateToProps = state => {
     return {
         dishes: state.dishes,
-        comments: state.comments
+        comments: state.comments,
+        favorites: state.favorites
     }
-};
+}
+
+const mapDispatchToProps = dispatch => ({
+    postFavorite: (dishId) => dispatch(postFavorite(dishId))
+})
+
 
 function RenderDish(props) {
 
@@ -66,15 +73,8 @@ function RenderComment(props) {
 
 class Dishdetail extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            favorites: []
-        };
-    }
-
     markFavorite(dishId) {
-        this.setState({favorites: this.state.favorites.concat(dishId)});
+        this.props.postFavorite(dishId);
     }
 
     static navigationOptions = {
@@ -83,10 +83,12 @@ class Dishdetail extends Component {
 
     render() {
         const dishId = this.props.navigation.getParam('dishId', 'default value');
+
+
         return (
             <View>
                 <RenderDish dish={this.props.dishes.dishes[+dishId]}
-                            favorite={this.state.favorites.some(el => el === dishId)}
+                            favorite={this.props.favorites.some(el => el === dishId)}
                             onPress={() => this.markFavorite(dishId)}
                 />
                 <RenderComment comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)}/>
@@ -96,4 +98,4 @@ class Dishdetail extends Component {
 }
 
 
-export default connect(mapStateToProps)(Dishdetail);
+export default connect(mapStateToProps, mapDispatchToProps)(DishDetail);

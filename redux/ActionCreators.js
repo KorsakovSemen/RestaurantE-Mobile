@@ -111,10 +111,12 @@ export const fetchLeaders = () => (dispatch) => {
     return fetch(baseUrl + 'leaders')
         .then(response => {
             if (response.ok) {
+                console.log(response);
                 return response;
             } else {
                 var error = new Error('Error ' + response.status + ': ' + response.statusText);
                 error.response = response;
+                console.log(response);
                 throw error;
             }},
             error => {
@@ -126,6 +128,18 @@ export const fetchLeaders = () => (dispatch) => {
         .catch(error => dispatch(leadersFailed(error.message)));
 };
 
+export const postFavorite = (dishId)  => (dispatch) => {
+
+    setTimeout(() => {
+        dispatch(addFavorite(dishId));
+    }, 2000);
+};
+
+
+export const addFavorite = (dishId) => ({
+    type: ActionTypes.ADD_FAVORITE,
+    payload: dishId
+});
 export const leadersLoading = () => ({
     type: ActionTypes.LEADERS_LOADING
 });

@@ -6,6 +6,7 @@ import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
@@ -34,7 +35,7 @@ function RenderItem(props) {
             </Card>
         )
     } else{
-        return(<View></View>)
+        return(<View><Text>{baseUrl + 'dishes'}</Text></View>)
     }
 }
 
@@ -59,6 +60,8 @@ class Home extends Component {
         return(
             <ScrollView>
                 <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]} />
+                <RenderItem item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]} />
+                <Text>{baseUrl + 'dishes'}</Text>
             </ScrollView>
         );
     }
