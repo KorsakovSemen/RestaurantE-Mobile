@@ -48,7 +48,9 @@ function RenderDish(props) {
 
         );
     } else {
-        return (<View></View>);
+        return (<View>
+            {this.props.dishes}
+        </View>);
     }
 }
 
@@ -98,4 +100,4 @@ class Dishdetail extends Component {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(DishDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(Dishdetail);

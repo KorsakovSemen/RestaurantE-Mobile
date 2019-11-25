@@ -7,6 +7,7 @@ import { LEADERS } from '../shared/leaders';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import FetchExample from './TestComponent'
 
 const mapStateToProps = state => {
     return {
@@ -16,7 +17,16 @@ const mapStateToProps = state => {
         leaders: state.leaders
     }
 };
-
+function GetMoviesFromApiAsync() {
+    return fetch('https://facebook.github.io/react-native/movies.json')
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson.movies;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
 function RenderItem(props) {
 
     const item = props.item;
