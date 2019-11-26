@@ -31,6 +31,7 @@ function RenderItem(props) {
 
     const item = props.item;
 
+
     if(item != null){
         return(
             <Card>
@@ -45,22 +46,12 @@ function RenderItem(props) {
             </Card>
         )
     } else{
-        return(<View><Text>{baseUrl + 'dishes'}</Text></View>)
+        return(<View></View>)
     }
 }
 
 
 class Home extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            dishes: DISHES,
-            promotions: PROMOTIONS,
-            leaders: LEADERS
-        };
-    }
-
 
     static navigationOptions = {
         title: 'Home'
@@ -71,7 +62,6 @@ class Home extends Component {
             <ScrollView>
                 <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]} />
                 <RenderItem item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]} />
-                <Text>{baseUrl + 'dishes'}</Text>
             </ScrollView>
         );
     }

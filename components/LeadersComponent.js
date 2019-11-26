@@ -5,6 +5,7 @@ import { DISHES } from '../shared/dishes';
 import TouchableScale from "react-native-touchable-scale";
 import {COMMENTS} from "../shared/comments";
 import {LEADERS} from "../shared/leaders";
+import {baseUrl} from "../shared/baseUrl";
 
 function RenderLeader(props) {
 
@@ -14,7 +15,7 @@ function RenderLeader(props) {
         return (
             <Card
                 featuredTitle={leader.name}
-                image={require('./images/uthappizza.png')}
+                image={{uri: baseUrl + leader.image}}
             >
                 <Text style={{margin: 10}}>{leader.description}</Text>
             </Card>

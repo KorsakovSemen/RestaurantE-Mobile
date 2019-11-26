@@ -64,7 +64,6 @@ class About extends Component {
         const { navigate } = this.props.navigation;
 
 
-
           if (this.props.leaders.isLoading) {
               return(
                   <ScrollView>

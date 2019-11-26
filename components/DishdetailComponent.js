@@ -7,6 +7,7 @@ import {COMMENTS} from "../shared/comments";
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite } from '../redux/ActionCreators';
+import {Loading} from "./LoadingComponent";
 
 
 const mapStateToProps = state => {
@@ -15,16 +16,18 @@ const mapStateToProps = state => {
         comments: state.comments,
         favorites: state.favorites
     }
-}
+};
 
 const mapDispatchToProps = dispatch => ({
     postFavorite: (dishId) => dispatch(postFavorite(dishId))
-})
+});
 
 
 function RenderDish(props) {
 
     const dish = props.dish;
+
+
 
     if (dish != null) {
         return (
@@ -56,10 +59,13 @@ function RenderDish(props) {
 
 function RenderComment(props) {
 
+
+
     const comment = props.comments.map((comment) => {
         return (
             <ScrollView>
-                <Card>
+                <Card
+                >
                     <Text>{comment.comment}</Text>
                 </Card>
             </ScrollView>
@@ -88,13 +94,13 @@ class Dishdetail extends Component {
 
 
         return (
-            <View>
+            <ScrollView>
                 <RenderDish dish={this.props.dishes.dishes[+dishId]}
                             favorite={this.props.favorites.some(el => el === dishId)}
                             onPress={() => this.markFavorite(dishId)}
                 />
                 <RenderComment comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)}/>
-            </View>
+            </ScrollView>
         );
     }
 }
