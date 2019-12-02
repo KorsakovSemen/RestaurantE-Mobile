@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import {favorites} from "./favorites";
 
 export const fetchComments = () => (dispatch) => {
     return fetch(baseUrl + 'comments')
@@ -29,6 +30,18 @@ export const commentsFailed = (errmess) => ({
 export const addComments = (comments) => ({
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
+});
+
+export const postComment = (dishId)  => (dispatch) => {
+
+    setTimeout(() => {
+        dispatch(addComment(dishId));
+    }, 2000);
+};
+
+export const addComment = (dishId) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: dishId
 });
 
 export const fetchDishes = () => (dispatch) => {
@@ -154,5 +167,10 @@ export const leadersFailed = (errmess) => ({
 export const addLeaders = (leaders) => ({
     type: ActionTypes.ADD_LEADERS,
     payload: leaders
+});
+
+export const deleteFavorite = (dishId) => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: dishId
 });
 

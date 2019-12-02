@@ -7,6 +7,7 @@ import {DISHES} from '../shared/dishes';
 import {COMMENTS} from "../shared/comments";
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import {Loading} from "./LoadingComponent";
 
 const mapStateToProps = state => {
     return {
@@ -40,6 +41,11 @@ class Menu extends Component {
         };
 
         const { navigate } = this.props.navigation;
+        if(this.props.dishes.isLoading){
+            return(
+                    <Loading/>
+                )
+        }
         return (
             <FlatList
                 data={this.props.dishes.dishes}

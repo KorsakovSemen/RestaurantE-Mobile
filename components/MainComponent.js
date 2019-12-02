@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
+import TestSkills from './TestSkillsComponent';
 import Contact from './ContactComponent'
+import Favorites from './FavoriteComponent'
 import {View, Platform, Text, ScrollView, Image, StyleSheet} from 'react-native';
 import Home from './HomeComponent'
 import {createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView} from 'react-navigation';
@@ -50,6 +52,24 @@ const ReservationNavigator = createStackNavigator({
     Reservation: {screen: Reservation}
 });
 
+const FavoritesNavigator = createStackNavigator({
+    Favorites: { screen: Favorites }
+}, {
+    navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+            backgroundColor: "#512DA8"
+        },
+        headerTitleStyle: {
+            color: "#fff"
+        },
+        headerTintColor: "#fff",
+        headerLeft: <Icon name="menu" size={24}
+                          iconStyle={{ color: 'white' }}
+                          onPress={ () => navigation.navigate('DrawerToggle') } />
+    })
+});
+
+
 const MenuNavigator = createStackNavigator({
 
         Menu: {
@@ -68,6 +88,7 @@ const MenuNavigator = createStackNavigator({
         Comment: {
             screen: CommentComponent
         }
+
      },
         {
         initialRouteName: 'Menu',
@@ -127,6 +148,23 @@ const AboutNavigator = createStackNavigator({
         }
     }
 );
+
+const TestSkillsNavigator = createStackNavigator({
+    TestSkills: {screen: TestSkills}
+}, {
+    navigationOptions: ({navigation}) => ({
+        headerStyle: {
+            backgroundColor: "#512DA8"
+        },
+        headerTitleStyle: {
+            color: "#fff"
+        },
+        headerLeft: <Icon name="menu" size={24}
+                          color='white'
+                          onPress={() => navigation.toggleDrawer()}/>,
+        headerTintColor: "#fff"
+    })
+});
 
 const HomeNavigator = createStackNavigator({
     Home: {screen: Home}
@@ -228,7 +266,25 @@ const MainNavigator = createDrawerNavigator({
                     drawerLabel: 'About Us'
                 },
             },
+        Favorites:{
+            screen: FavoritesNavigator
+        },
+        TestSkills:{
+            screen: TestSkillsNavigator,
+            navigationOptions: {
+                title: 'Testing',
+                drawerIcon: ({tintColor, focused}) => (
+                    <Icon
+                        name='lock'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        }
     },
+
 
     {
         drawerLabel: 'Navigation',
