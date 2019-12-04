@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert, PanResponder, Share } from 'react-native'; import { Card, Icon, Rating, Input } from 'react-native-elements';
+import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert,  Share, PanResponder } from 'react-native'; import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 
@@ -27,7 +27,7 @@ function RenderDish(props) {
     handleViewRef = ref => this.view = ref;
 
     const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
-        if (dx < -200)
+        if (dx < -4000)
             return true;
         else
             return false;
@@ -61,7 +61,7 @@ function RenderDish(props) {
                 props.onComment();
             return true;
         },
-    })
+    });
 
     const shareDish = (title, message, url) => {
         Share.share({
@@ -71,7 +71,7 @@ function RenderDish(props) {
         }, {
             dialogTitle: 'Share ' + title
         })
-    }
+    };
 
     if (dish != null) {
         return (

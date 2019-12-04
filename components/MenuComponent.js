@@ -8,6 +8,7 @@ import {COMMENTS} from "../shared/comments";
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import {Loading} from "./LoadingComponent";
+import * as Animatable from "react-native-animatable";
 
 const mapStateToProps = state => {
     return {
@@ -47,11 +48,13 @@ class Menu extends Component {
                 )
         }
         return (
+            <Animatable.View animation="zoomInUp" duration={2000} delay={1000}>
             <FlatList
                 data={this.props.dishes.dishes}
                 renderItem={renderMenuItem}
                 keyExtractor={item => item.id.toString()}
             />
+            </Animatable.View>
 
 
         );
