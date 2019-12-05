@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert,  Share, PanResponder } from 'react-native'; import { Card, Icon, Rating, Input } from 'react-native-elements';
+import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert,  Share, PanResponder } from 'react-native';
+import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 
@@ -27,11 +28,11 @@ function RenderDish(props) {
     handleViewRef = ref => this.view = ref;
 
     const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
-        if (dx < -4000)
+        if (dx < -200)
             return true;
         else
             return false;
-    }
+    };
 
     const recognizeComment = ({ moveX, moveY, dx, dy }) => {
         if (dx > 200)
@@ -57,10 +58,12 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
-            else if (recognizeComment(gestureState))
-                props.onComment();
+
+            if (recognizeComment(gestureState))
+                props.onSelect();
+
             return true;
-        },
+        }
     });
 
     const shareDish = (title, message, url) => {

@@ -1,20 +1,25 @@
 import React, {Component} from 'react';
-import {View, FlatList} from 'react-native';
-import {ListItem, Tile} from 'react-native-elements';
-import {Image} from "react-native-elements";
-import TouchableScale from 'react-native-touchable-scale';
-import {DISHES} from '../shared/dishes';
-import {COMMENTS} from "../shared/comments";
+import {View, FlatList, PanResponder, Alert} from 'react-native';
+import {ListItem, Tile, Card} from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import {Loading} from "./LoadingComponent";
 import * as Animatable from "react-native-animatable";
+import Swipeout from "react-native-swipeout";
+import {dishes} from "../redux/dishes";
+import {deleteFavorite} from "../redux/ActionCreators";
 
 const mapStateToProps = state => {
     return {
-        dishes: state.dishes
+        dishes: state.dishes,
+        favorites: state.favorites
     }
 };
+
+const mapDispatchToProps = dispatch => ({
+    deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId))
+});
+
 
 class Menu extends Component {
 
@@ -25,9 +30,39 @@ class Menu extends Component {
 
     render() {
 
+
         const renderMenuItem = ({item, index}) => {
 
+            const rightButton = [
+                {
+                    text: 'Delete',
+                    type: 'delete',
+                    onPress: () => {
+                        Alert.alert(
+                            'Delete favorite',
+                            'Are you want delete ?',
+                            [
+                                {text: 'Cancel',
+                                    onPress: () => console.log('Not'),
+                                    style: 'cancel'
+                                },
+                                {
+                                    text: 'Ok',
+                                    onPress: () => this.props.deleteFavorite(item.id)
+                                }
+
+                            ],
+                            { cancelable: false}
+
+                        );
+                    }
+
+
+                }
+            ];
+
             return (
+                <Swipeout right={rightButton} autoClose={true}>
                 <Tile
                     key={index}
                     title={item.name}
@@ -36,7 +71,7 @@ class Menu extends Component {
                     onPress={() => navigate('Dishdetail', { dishId: item.id })}
                     imageSrc={{ uri: baseUrl + item.image}}
                 />
-
+                </Swipeout>
 
             );
         };
@@ -47,8 +82,10 @@ class Menu extends Component {
                     <Loading/>
                 )
         }
+
         return (
-            <Animatable.View animation="zoomInUp" duration={2000} delay={1000}>
+
+            <Animatable.View animation="zoomInUp" duration={1000} delay={800}  >
             <FlatList
                 data={this.props.dishes.dishes}
                 renderItem={renderMenuItem}
@@ -63,4 +100,4 @@ class Menu extends Component {
 }
 
 
-export default connect(mapStateToProps)(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
