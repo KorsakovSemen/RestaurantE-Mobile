@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import {fetchDishes, fetchComments, fetchPromos, fetchLeaders} from '../redux/ActionCreators';
 import Reservation from './ReservationComponent';
 import CommentComponent from "./CommentComponent";
+import Login from "./LoginComponent";
 
 const mapStateToProps = state => {
     return {
@@ -69,6 +70,24 @@ const FavoritesNavigator = createStackNavigator({
     })
 });
 
+const LoginNavigator = createStackNavigator({
+        Login: {
+            screen: Login
+        }
+    },
+    {
+        initialRouteName: 'Login',
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: "#512DA8"
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: "#fff"
+            }
+        }
+    }
+);
 
 const MenuNavigator = createStackNavigator({
 
@@ -267,15 +286,26 @@ const MainNavigator = createDrawerNavigator({
                 },
             },
         Favorites:{
-            screen: FavoritesNavigator
-        },
-        TestSkills:{
-            screen: TestSkillsNavigator,
+            screen: FavoritesNavigator,
             navigationOptions: {
-                title: 'Testing',
+                title: 'Favorites',
                 drawerIcon: ({tintColor, focused}) => (
                     <Icon
-                        name='lock'
+                        name='star'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
+        Login: {
+            screen: LoginNavigator,
+            navigationOptions: {
+                title: 'Login',
+                drawerIcon: ({tintColor, focused}) => (
+                    <Icon
+                        name='user'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
@@ -283,6 +313,20 @@ const MainNavigator = createDrawerNavigator({
                 )
             }
         }
+        // TestSkills:{
+        //     screen: TestSkillsNavigator,
+        //     navigationOptions: {
+        //         title: 'Testing',
+        //         drawerIcon: ({tintColor, focused}) => (
+        //             <Icon
+        //                 name='lock'
+        //                 type='font-awesome'
+        //                 size={24}
+        //                 color={tintColor}
+        //             />
+        //         )
+        //     }
+        // }
     },
 
 
