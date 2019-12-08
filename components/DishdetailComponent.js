@@ -14,12 +14,12 @@ const mapStateToProps = state => {
         comments: state.comments,
         favorites: state.favorites
     }
-}
+};
 
 const mapDispatchToProps = dispatch => ({
     postFavorite: (dishId) => dispatch(postFavorite(dishId)),
     postComment: (dishId, rating, comment, author) => dispatch(postComment(dishId, rating, comment, author))
-})
+});
 
 function RenderDish(props) {
 

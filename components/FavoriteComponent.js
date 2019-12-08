@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {FlatList, View, Text, ScrollView, Alert} from 'react-native';
+import {FlatList, View, Text, ScrollView, Alert, Share} from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
@@ -28,6 +28,15 @@ class Favorites extends Component {
 
 
     render() {
+
+        const shareDish = (title, message) => {
+            Share.share({
+                title: title,
+                message: title + ': ' + message
+            },{
+                dialogTitle: 'Share ' + title
+            })
+        };
 
         const { navigate } = this.props.navigation;
 
@@ -59,6 +68,8 @@ class Favorites extends Component {
 
 
                 }
+
+
             ];
 
             return (
@@ -68,7 +79,7 @@ class Favorites extends Component {
                         title={item.name}
                         subtitle={item.description}
                         hideChevron={true}
-                        onPress={() => navigate('Dishdetail', { dishId: item.id })}
+                        onPress={() => shareDish(item.name, item.price)}
                         leftAvatar={{ source: {uri: baseUrl + item.image}}}
                     />
                 </Swipeout>
